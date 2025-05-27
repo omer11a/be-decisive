@@ -113,7 +113,7 @@
 	Introducing <b>''Be Decisive''</b>, a method for regulating the accurate generation of multi-subject images without relying on pre-made layouts.
       </h2>
       <h3 class="subtitle has-text-centered">
-  Our approach extracts a prompt-aligned layout directly from the initial random noise, guiding the model to follow it while refining the layout during denoising.
+  Our method extracts a prompt-aligned layout directly from the initial random noise, guiding the model to follow it while refining the layout during denoising.
   This generation process respects the diffusion model's prior, leading to natural and divserse compositions while reducing semantic leakage.
       </h3>
     </div>
@@ -193,31 +193,28 @@
   <div class="hero-body">
       <div class="container is-max-desktop is-centered has-text-centered">
       <h2 class="title is-3">How does it work?</h2>
-          <img class="my-image" src="static/images/layouts.jpg" style="width:600px; height:auto;">
           <div class="content has-text-justified">
             <p>
               Our method is based on the interplay between soft- and hard-layouts.
             </p>
             <p>
-              A <i>soft-layout</i> is a feature map that represents each pixel as a descriptor encapsulating its potential to associate with other pixels in composing a single subject.
+              A <i>soft-layout</i> is a feature map that represents each pixel's potential to associate with other pixels in composing a single subject. We extract the soft-layout from the diffusion's model features.
             </p>
             <p>
               A <i>hard-layout</i> is derived by clustering the soft-layout according to the number of subjects described in the prompt.
             </p>
+          </div>
+          <img class="my-image" src="static/images/layouts.jpg" style="width:600px; height:auto;">
+          <div class="content has-text-justified">
             <p>
-              This figure illustrates the progression of the soft- and hard-layouts in three cases.
+              This figure illustrates the progression of the soft- and hard-layouts in two cases.
             </p>
             <p>
-              The top row shows results from our full method, where the model is encouraged to produce soft-layouts that respect the previous hard-layouts, promoting a “decisive” generation process.
+              The bottom row shows vanilla SDXL, where we present the soft-layouts extracted throughout generation. The generated image doesn't adhere to the prompt.
             </p>
             <p>
-              The middle row presents our method without guidance: hard-layouts are used to reduce leakage, but without explicitly encouraging decisiveness.
-            </p>
-            <p>
-              The bottom row shows vanilla SDXL, where only the soft-layout extracted from the noisy latents is displayed.
-            </p>
-            <p>
-              Below each image, we show the hard-layout obtained at the final timestep.
+              The top row shows results from our method, where the model is encouraged to produce soft-layouts that respect the prompt-aligned hard-layouts, which are refined between each step.
+              The refined hard-layouts respect the subject boundaries from previous timesteps, resulting in a “decisive” generation process, where each subject is consistently delgated to a specific region.
             </p>
           </div>
           <img class="my-image" src="static/images/overview.jpg" style="width:1000px; height:auto;">
